@@ -11,8 +11,6 @@ use App\Domain\User\User;
 class Message extends Model
 {
     protected $table = 'message';
-    // protected User $sender;
-    // protected Room $room;
     protected string $content;
 
     public function room()

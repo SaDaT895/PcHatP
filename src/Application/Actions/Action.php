@@ -19,10 +19,7 @@ abstract class Action
 
     protected array $args;
 
-    public function __construct()
-    {
-        // $this->logger = $logger;
-    }
+    public function __construct() {}
 
     /**
      * @throws HttpNotFoundException

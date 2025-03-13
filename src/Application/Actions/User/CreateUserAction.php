@@ -13,8 +13,10 @@ class CreateUserAction extends Action
 {
     protected function action(): Response
     {
-        // $user = new User();
-        $user = ($this->request->getParsedBody());
-        return $this->respondWithData($user);
+        $user = new User();
+        $data = $this->request->getParsedBody();
+        $user->username = $data['username'];
+        $user->save();
+        return $this->respondWithData('User created with username: ' . $user->username);
     }
 }

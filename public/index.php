@@ -24,18 +24,17 @@ if (false) { // Should be set to true in production
 // $database = require __DIR__ . '/../config/database.php';
 // $database($containerBuilder);
 
+$capsule = new \Illuminate\Database\Capsule\Manager;
+$capsule->addConnection([
+	'driver' 	=> 'sqlite',
+	'database' 	=> __DIR__ . '/../db/db.sqlite',
+]);
+
+$capsule->setAsGlobal();
+$capsule->bootEloquent();
+
 // add Illuminate 
-$container['db'] = function ($container) {
-	$capsule = new \Illuminate\Database\Capsule\Manager;
-	$capsule->addConnection([
-		'driver' 	=> 'sqlite',
-		'database' 	=> __DIR__ . '/db/db.sqlite',
-		'prefix'	=> ''
-	]);
-
-	$capsule->setAsGlobal();
-	$capsule->bootEloquent();
-
+$container['db'] = function ($container) use ($capsule) {
 	return $capsule;
 };
 

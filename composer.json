@@ -23,6 +23,7 @@
     "illuminate/database": "^12.2",
     "monolog/monolog": "^2.8",
     "php-di/php-di": "^6.4",
+    "robmorgan/phinx": "^0.16.6",
     "slim/psr7": "^1.5",
     "slim/slim": "^4.10"
   },
@@ -53,6 +54,7 @@
   },
   "scripts": {
     "start": "php -S localhost:8080 -t public",
-    "test": "phpunit"
+    "test": "phpunit",
+    "migrate": "php vendor/bin/phinx migrate -c config/phinx.php"
   }
 }
