@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Application\Actions;
 
 use App\Domain\DomainException\DomainRecordNotFoundException;
+use App\Domain\DomainException\InvalidIdException;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Exception\HttpBadRequestException;
@@ -61,6 +62,8 @@ abstract class Action
         if (!isset($this->args[$name])) {
             throw new HttpBadRequestException($this->request, "Could not resolve argument `{$name}`.");
         }
+
+        if (!(int) $this->args[$name]) throw new InvalidIdException($this->request);
 
         return $this->args[$name];
     }

@@ -16,11 +16,9 @@ class ListUsersInRoomAction extends Action
     protected function action(): Response
     {
         $groupId = (int) $this->resolveArg('id');
-        if (!$groupId) throw new InvalidIdException($this->request);
-
         $room = Room::find($groupId);
 
-        if (!$room) throw new DomainRecordNotFoundException('No such room');
+        if (!$room) throw new DomainRecordNotFoundException('No such room. Verify ID parameter.');
 
         $room_users = $room->users;
         if (!$room_users->count()) throw new DomainRecordNotFoundException('No users in room. Send a message to join in.');
