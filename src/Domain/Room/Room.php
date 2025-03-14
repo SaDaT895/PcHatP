@@ -10,12 +10,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Room extends Model
 {
-    protected $table = 'room';
     protected string $name;
 
     public function users()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsToMany(User::class, 'messages', 'room_id', 'sender_id')->distinct();
     }
 
     public function messages()

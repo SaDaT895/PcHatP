@@ -39,10 +39,6 @@ class HttpErrorHandler extends SlimErrorHandler
                 $error->setType(ActionError::RESOURCE_NOT_FOUND);
             } elseif ($exception instanceof HttpMethodNotAllowedException) {
                 $error->setType(ActionError::NOT_ALLOWED);
-            } elseif ($exception instanceof HttpUnauthorizedException) {
-                $error->setType(ActionError::UNAUTHENTICATED);
-            } elseif ($exception instanceof HttpForbiddenException) {
-                $error->setType(ActionError::INSUFFICIENT_PRIVILEGES);
             } elseif ($exception instanceof HttpBadRequestException) {
                 $error->setType(ActionError::BAD_REQUEST);
             } elseif ($exception instanceof HttpNotImplementedException) {

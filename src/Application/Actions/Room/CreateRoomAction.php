@@ -1,15 +1,22 @@
 <?php
 
+declare(strict_types=1);
+
+namespace App\Application\Actions\Room;
+
 use App\Application\Actions\Action;
-use Psr\Http\Message\ServerRequestInterface;
+use App\Domain\Room\Room;
 use Slim\Psr7\Response;
-use Slim\Psr7\Request;
 
 class CreateRoomAction extends Action
 {
 
-    protected function action(ServerRequestInterface $request): Response
+    protected function action(): Response
     {
-        return $this->respondWithData('Room created');
+        $room = new Room();
+        $data = $this->getFormData();
+        $room->name = $data['name'];
+        $room->save();
+        return $this->respondWithData('Room created ' . $room->name, 201);
     }
 }

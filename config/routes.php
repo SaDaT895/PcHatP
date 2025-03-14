@@ -2,11 +2,17 @@
 
 declare(strict_types=1);
 
+use App\Application\Actions\Message\SendMessageAction;
+use App\Application\Actions\Room\CreateRoomAction;
+use App\Application\Actions\Room\ListMessagesInRoomAction;
+use App\Application\Actions\Room\ListRoomsAction;
+use App\Application\Actions\Room\ListUsersInRoomAction;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
 use \App\Application\Actions\User\CreateUserAction;
+
 
 
 return function (App $app) {
@@ -22,5 +28,16 @@ return function (App $app) {
 
     $app->group('/users', function (Group $group) {
         $group->post('', CreateUserAction::class);
+    });
+
+    $app->group('/rooms', function (Group $group) {
+        $group->get('', ListRoomsAction::class);
+        $group->post('', CreateRoomAction::class);
+        $group->get('/{id}/users', ListUsersInRoomAction::class);
+        $group->get('/{id}/messages', ListMessagesInRoomAction::class);
+    });
+
+    $app->group('/messages', function (Group $group) {
+        $group->post('', SendMessageAction::class);
     });
 };
