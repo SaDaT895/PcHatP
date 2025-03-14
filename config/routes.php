@@ -7,6 +7,7 @@ use App\Application\Actions\Room\CreateRoomAction;
 use App\Application\Actions\Room\ListMessagesInRoomAction;
 use App\Application\Actions\Room\ListRoomsAction;
 use App\Application\Actions\Room\ListUsersInRoomAction;
+use App\Application\Actions\User\ChooseUserAction;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
@@ -28,6 +29,7 @@ return function (App $app) {
     $app->group('/users', function (Group $group) {
         $group->post('', CreateUserAction::class);
         $group->put('/{id}', EditUserAction::class);
+        $group->post('/{id}', ChooseUserAction::class);
     });
 
     $app->group('/rooms', function (Group $group) {

@@ -63,7 +63,8 @@ abstract class Action
             throw new HttpBadRequestException($this->request, "Could not resolve argument `{$name}`.");
         }
 
-        if (!(int) $this->args[$name]) throw new InvalidIdException($this->request);
+        if ($name == 'id' && !(int)$this->args[$name])
+            throw new InvalidIdException($this->request);
 
         return $this->args[$name];
     }

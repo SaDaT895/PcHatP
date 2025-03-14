@@ -19,6 +19,7 @@ class CreateUserAction extends Action
         $user = new User();
         $user->username = $data['username'];
         $user->save();
+        $_SESSION['activeUser'] = $user->id;
         return $this->respondWithData('User created with username: ' . $user->username, 201);
     }
 }
