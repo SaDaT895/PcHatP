@@ -10,7 +10,7 @@ use App\Domain\User\User;
 
 class Message extends Model
 {
-    protected $table = 'message';
+    const CREATED_AT = 'sent_at';
     protected string $content;
 
     public function room()

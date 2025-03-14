@@ -12,8 +12,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\App;
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
 use \App\Application\Actions\User\CreateUserAction;
-
-
+use App\Application\Actions\User\EditUserAction;
 
 return function (App $app) {
     $app->options('/{routes:.*}', function (Request $request, Response $response) {
@@ -28,6 +27,7 @@ return function (App $app) {
 
     $app->group('/users', function (Group $group) {
         $group->post('', CreateUserAction::class);
+        $group->put('/{id}', EditUserAction::class);
     });
 
     $app->group('/rooms', function (Group $group) {
