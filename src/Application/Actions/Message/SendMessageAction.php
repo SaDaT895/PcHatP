@@ -30,7 +30,7 @@ class SendMessageAction extends Action
         if (!Room::find($roomId)) throw new DomainRecordNotFoundException('No such room');
 
         $content = $data['message'];
-        if (!$content) throw new EmptyMessageException($this->request);
+        if (!trim($content)) throw new EmptyMessageException($this->request);
         $sender = $_SESSION['activeUser'];
 
         $message = new Message();
