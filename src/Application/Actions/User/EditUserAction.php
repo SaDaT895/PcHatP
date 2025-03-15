@@ -20,6 +20,6 @@ class EditUserAction extends Action
 
         if (!$user) throw new DomainRecordNotFoundException('No such user. Verify ID parameter.');
         $user->update($this->getFormData());
-        return $this->respondWithData('User ' . $user->id . ' updated');
+        return $this->respondWithData($user);
     }
 }

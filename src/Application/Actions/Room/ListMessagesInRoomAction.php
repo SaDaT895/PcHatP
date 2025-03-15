@@ -15,7 +15,7 @@ class ListMessagesInRoomAction extends Action
 {
     protected function action(): Response
     {
-        $groupId = (int) $this->resolveArg('id');
+        $groupId = $this->resolveArg('id');
         $room = Room::find($groupId);
 
         if (!$room) throw new DomainRecordNotFoundException('No such room. Verify ID parameter.');

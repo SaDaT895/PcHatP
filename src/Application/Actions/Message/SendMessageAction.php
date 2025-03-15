@@ -20,16 +20,19 @@ class SendMessageAction extends Action
         $data = $this->getFormData();
         $roomId = $data['room'];
         $content = $data['content'];
+        $sender = $_SESSION['activeUser'];
 
         if (!Room::find($roomId)) throw new DomainRecordNotFoundException('No such room, verify room attribute in body');
         if (!$content) throw new HttpBadRequestException($this->request, 'Missing or empty content');
+        if (!$sender) throw new HttpBadRequestException($this->request, 'No user set in session. Create or choose an existing one to send messages');
+
 
         $message = new Message();
         $message->content = $content;
-        $message->sender_id = $_SESSION['activeUser'];
+        $message->sender_id = $sender;
         $message->room_id = $roomId;
         $message->save();
 
-        return $this->respondWithData('Message sent to ' . $message->room->name . ' by user ' . $message->sender->id, 201);
+        return $this->respondWithData($message, 201);
     }
 }

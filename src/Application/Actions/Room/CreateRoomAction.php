@@ -17,6 +17,6 @@ class CreateRoomAction extends Action
         $data = $this->getFormData();
         $room->name = $data['name'];
         $room->save();
-        return $this->respondWithData('Room created ' . $room->name, 201);
+        return $this->respondWithData($room, 201);
     }
 }

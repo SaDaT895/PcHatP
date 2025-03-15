@@ -20,6 +20,6 @@ class ChooseUserAction extends Action
 
         $_SESSION['activeUser'] = $user->id;
 
-        return $this->respondWithData('Active User: ' . $user->id . ' ' . $user->username);
+        return $this->respondWithData($user);
     }
 }
