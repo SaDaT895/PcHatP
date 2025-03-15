@@ -16,16 +16,7 @@ class ActionTest extends TestCase
     public function testActionSetsHttpCodeInRespond()
     {
         $app = $this->getAppInstance();
-        $container = $app->getContainer();
-        $logger = $container->get(LoggerInterface::class);
-
-        $testAction = new class ($logger) extends Action {
-            public function __construct(
-                LoggerInterface $loggerInterface
-            ) {
-                parent::__construct($loggerInterface);
-            }
-
+        $testAction = new class() extends Action {
             public function action(): Response
             {
                 return $this->respond(
@@ -42,23 +33,14 @@ class ActionTest extends TestCase
         $app->get('/test-action-response-code', $testAction);
         $request = $this->createRequest('GET', '/test-action-response-code');
         $response = $app->handle($request);
-
         $this->assertEquals(202, $response->getStatusCode());
     }
 
     public function testActionSetsHttpCodeRespondData()
     {
         $app = $this->getAppInstance();
-        $container = $app->getContainer();
-        $logger = $container->get(LoggerInterface::class);
 
-        $testAction = new class ($logger) extends Action {
-            public function __construct(
-                LoggerInterface $loggerInterface
-            ) {
-                parent::__construct($loggerInterface);
-            }
-
+        $testAction = new class() extends Action {
             public function action(): Response
             {
                 return $this->respondWithData(
@@ -73,7 +55,6 @@ class ActionTest extends TestCase
         $app->get('/test-action-response-code', $testAction);
         $request = $this->createRequest('GET', '/test-action-response-code');
         $response = $app->handle($request);
-
         $this->assertEquals(202, $response->getStatusCode());
     }
 }
