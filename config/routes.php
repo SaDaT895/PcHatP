@@ -14,6 +14,7 @@ use Slim\App;
 use Slim\Interfaces\RouteCollectorProxyInterface as Group;
 use \App\Application\Actions\User\CreateUserAction;
 use App\Application\Actions\User\EditUserAction;
+use App\Application\Actions\User\ViewActiveUserAction;
 
 return function (App $app) {
     $app->options('/{routes:.*}', function (Request $request, Response $response) {
@@ -30,6 +31,7 @@ return function (App $app) {
         $group->post('', CreateUserAction::class);
         $group->put('/{id}', EditUserAction::class);
         $group->post('/{id}', ChooseUserAction::class);
+        $group->get('/active', ViewActiveUserAction::class);
     });
 
     $app->group('/rooms', function (Group $group) {

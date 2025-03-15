@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Application\Actions\Message;
 
 use App\Application\Actions\Action;
+use App\Application\Exceptions\MissingFieldsException;
 use App\Domain\DomainException\DomainRecordNotFoundException;
 use App\Domain\Message\Message;
 use App\Domain\Room\Room;
@@ -17,15 +18,18 @@ class SendMessageAction extends Action
 {
     protected function action(): Response
     {
+        if (!isset($_SESSION['activeUser'])) throw new HttpBadRequestException($this->request, 'No user set in session. Create or choose an existing one to send messages');
+
         $data = $this->getFormData();
+
+        $missingFields = array_filter(['room', 'message'], fn($field) => !isset($data[$field]));
+        if ($missingFields) throw new MissingFieldsException($this->request,  $missingFields);
+
         $roomId = $data['room'];
-        $content = $data['content'];
+        if (!Room::find($roomId)) throw new DomainRecordNotFoundException('No such room');
+
+        $content = $data['message'];
         $sender = $_SESSION['activeUser'];
-
-        if (!Room::find($roomId)) throw new DomainRecordNotFoundException('No such room, verify room attribute in body');
-        if (!$content) throw new HttpBadRequestException($this->request, 'Missing or empty content');
-        if (!$sender) throw new HttpBadRequestException($this->request, 'No user set in session. Create or choose an existing one to send messages');
-
 
         $message = new Message();
         $message->content = $content;
