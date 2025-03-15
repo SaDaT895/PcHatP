@@ -7,6 +7,7 @@ namespace App\Application\Actions\Message;
 use App\Application\Actions\Action;
 use App\Application\Exceptions\MissingFieldsException;
 use App\Domain\DomainException\DomainRecordNotFoundException;
+use App\Domain\Message\EmptyMessageException;
 use App\Domain\Message\Message;
 use App\Domain\Room\Room;
 use Psr\Http\Message\ResponseInterface;
@@ -29,6 +30,7 @@ class SendMessageAction extends Action
         if (!Room::find($roomId)) throw new DomainRecordNotFoundException('No such room');
 
         $content = $data['message'];
+        if (!$content) throw new EmptyMessageException($this->request);
         $sender = $_SESSION['activeUser'];
 
         $message = new Message();
