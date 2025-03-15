@@ -17,10 +17,11 @@ class CreateUserAction extends Action
         $data = $this->request->getParsedBody();
 
         if (!isset($data['username'])) throw new MissingFieldsException($this->request, ['username']);
+        $username = $data['username'];
 
-        if (User::where('username', $data['username'])->first()) throw new UsernameNotAvailableException($this->request);
+        if (User::where('username', $username)->first()) throw new UsernameNotAvailableException($this->request);
         $user = new User();
-        $user->username = $data['username'];
+        $user->username = $username;
         $user->save();
         $_SESSION['activeUser'] = $user->id;
         return $this->respondWithData($user, 201);
