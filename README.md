@@ -16,19 +16,19 @@ DDD-based application. Find controller classes in src\Application\Actions and mo
 ## Endpoints
 
 ### Users
-  - POST /users {username} create a new User
-  - PUT /users/:id {username} edit user (username)
-  - GET /users list all users
-  - POST /users/:id select a user (mark as active user)
-  - GET /users/active get active user
+  - POST /users {username} - create a new User
+  - PUT /users/:id {username} -  edit user (username)
+  - GET /users - list all users
+  - POST /users/:id - select a user (mark as active user)
+  - GET /users/active - get active user
 
 ### Rooms
-  - POST /rooms {name} create a new Room
-  - PUT /rooms/:id edit room (name)
-  - GET /rooms/:id/users list all users in room
-  - GET /room/:id/messages list all messages in room
+  - POST /rooms {name} - create a new Room
+  - PUT /rooms/:id {name} - edit room (name)
+  - GET /rooms/:id/users - list all users in room
+  - GET /room/:id/messages - list all messages in room
 
 ### Messages
-  - POST /messages {message:string, room:integer} to send a message
+  - POST /messages {message:string, room:integer} - send a message
 
 
