@@ -11,6 +11,8 @@ You may run `composer dev` to get started.
   - Send a message in room
   - When creating multiple users, use POST /users/:id to select a user
 
+DDD-based application. Find controller classes in src\Application\Actions and models in src\Domain
+
 ## Endpoints
 
 ### Users
