@@ -15,7 +15,7 @@ class Room extends Model
     protected $fillable = ['name'];
     public function users()
     {
-        return $this->belongsToMany(User::class, 'messages', 'room_id', 'sender_id')->distinct();
+        return $this->belongsToMany(User::class, 'room_users', 'room_id', 'user_id');
     }
 
     public function messages()
