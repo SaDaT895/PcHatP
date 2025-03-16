@@ -7,8 +7,6 @@ namespace App\Application\Exceptions;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Exception\HttpBadRequestException;
 
-
-
 class InvalidIdException extends HttpBadRequestException
 {
 

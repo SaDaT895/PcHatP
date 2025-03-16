@@ -5,8 +5,6 @@ declare(strict_types=1);
 namespace Tests;
 
 use Illuminate\Database\Capsule\Manager as Capsule;
-use Phinx\Db\Adapter\AdapterInterface;
-use Phinx\Db\Adapter\PdoAdapter;
 use Phinx\Db\Adapter\SQLiteAdapter;
 
 class TestSqLiteAdapter extends SQLiteAdapter

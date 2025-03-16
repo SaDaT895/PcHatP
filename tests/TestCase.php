@@ -65,7 +65,7 @@ class TestCase extends PHPUnit_TestCase
         $routes = require __DIR__ . '/../config/routes.php';
         $routes($app);
 
-        //testing with  in-memory: SQLite is troublesome, using file for now
+        // testing with  in-memory: SQLite is troublesome, using file for now
         // AdapterFactory::instance()->registerAdapter('testsqlite', TestSqLiteAdapter::class);
 
 
@@ -111,6 +111,7 @@ class TestCase extends PHPUnit_TestCase
         $phinx = new PhinxApplication();
         $phinx->setAutoExit(false);
         $phinx->run(new StringInput('rollback -c config/phinx.php -e testing -t 0'));
+        // reset session
         $_SESSION = array();
     }
 }

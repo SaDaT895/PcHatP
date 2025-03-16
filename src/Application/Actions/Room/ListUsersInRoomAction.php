@@ -6,7 +6,6 @@ namespace App\Application\Actions\Room;
 
 use App\Application\Actions\Action;
 use App\Domain\DomainException\DomainRecordNotFoundException;
-use App\Domain\DomainException\InvalidIdException;
 use App\Domain\Room\Room;
 use Slim\Psr7\Response;
 

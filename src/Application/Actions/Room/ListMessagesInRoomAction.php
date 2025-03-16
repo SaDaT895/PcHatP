@@ -6,9 +6,7 @@ namespace App\Application\Actions\Room;
 
 use App\Application\Actions\Action;
 use App\Domain\DomainException\DomainRecordNotFoundException;
-use App\Domain\DomainException\InvalidIdException;
 use App\Domain\Room\Room;
-use Slim\Exception\HttpBadRequestException;
 use Slim\Psr7\Response;
 
 class ListMessagesInRoomAction extends Action
@@ -22,6 +20,6 @@ class ListMessagesInRoomAction extends Action
 
         $room_messages = $room->messages;
         if (!$room_messages->count()) throw new DomainRecordNotFoundException('No messages in room');
-        return $this->respondWithData($room_messages);
+        return $this->respondWithData($room_messages->sortByDesc('sent_at')->values());
     }
 }

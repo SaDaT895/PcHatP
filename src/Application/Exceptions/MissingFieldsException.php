@@ -7,8 +7,6 @@ namespace App\Application\Exceptions;
 use Psr\Http\Message\ServerRequestInterface;
 use Slim\Exception\HttpBadRequestException;
 
-
-
 class MissingFieldsException extends HttpBadRequestException
 {
     public function __construct(ServerRequestInterface $request, array $fields)
