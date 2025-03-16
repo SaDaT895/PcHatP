@@ -18,7 +18,7 @@
     }
   ],
   "require": {
-    "php": "^7.4 || ^8.0",
+    "php": "^7.4 || ^8.3",
     "ext-json": "*",
     "illuminate/database": "^12.2",
     "monolog/monolog": "^2.8",
@@ -58,8 +58,8 @@
     "migrate": "php vendor/bin/phinx migrate -c config/phinx.php",
     "dev": [
       "@composer install",
-      "php vendor/bin/phinx migrate -c config/phinx.php",
-      "php -S localhost:8080 -t public"
+      "@composer migrate",
+      "@composer start"
     ]
   }
 }
