@@ -15,9 +15,10 @@ return
                 'suffix' => 'sqlite'
             ],
             'testing' => [
-                'adapter' => 'testsqlite',
-                'name' => ':memory:',
-                // 'suffix' => 'sqlite'
+                'adapter' => 'sqlite',
+                // 'name' => ':memory:',
+                'name' => 'db/db.testing',
+                'suffix' => 'sqlite'
             ],
         ],
         'version_order' => 'creation'

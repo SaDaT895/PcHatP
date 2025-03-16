@@ -38,8 +38,8 @@ class TestCase extends PHPUnit_TestCase
         $capsule = new Manager();
         $capsule->addConnection([
             'driver'    => 'sqlite',
-            // 'database'  => __DIR__ . '/../db/db.testing.sqlite',
-            'database' => ':memory:'
+            'database'  => __DIR__ . '/../db/db.testing.sqlite',
+            // 'database' => ':memory:'
         ]);
 
         $capsule->setAsGlobal();
@@ -64,6 +64,10 @@ class TestCase extends PHPUnit_TestCase
         // Register routes
         $routes = require __DIR__ . '/../config/routes.php';
         $routes($app);
+
+        //testing with  in-memory: SQLite is troublesome, using file for now
+        // AdapterFactory::instance()->registerAdapter('testsqlite', TestSqLiteAdapter::class);
+
 
         return $app;
     }
@@ -99,7 +103,13 @@ class TestCase extends PHPUnit_TestCase
     {
         $phinx = new PhinxApplication();
         $phinx->setAutoExit(false);
-        AdapterFactory::instance()->registerAdapter('testsqlite', TestSqLiteAdapter::class);
         $phinx->run(new StringInput('migrate -c config/phinx.php -e testing'));
+    }
+
+    public function tearDown(): void
+    {
+        $phinx = new PhinxApplication();
+        $phinx->setAutoExit(false);
+        $phinx->run(new StringInput('rollback -c config/phinx.php -e testing -t 0'));
     }
 }

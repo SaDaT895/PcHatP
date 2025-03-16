@@ -6,6 +6,7 @@ namespace Tests\Application\Actions;
 
 use App\Application\Actions\Action;
 use App\Application\Actions\ActionPayload;
+use App\Application\Exceptions\InvalidIdException;
 use DateTimeImmutable;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Log\LoggerInterface;
@@ -56,5 +57,26 @@ class ActionTest extends TestCase
         $request = $this->createRequest('GET', '/test-action-response-code');
         $response = $app->handle($request);
         $this->assertEquals(202, $response->getStatusCode());
+    }
+
+    public function testActionInvalidID()
+    {
+        $app = $this->getAppInstance();
+        $testAction = new class() extends Action {
+            public function action(): Response
+            {
+                $id = $this->resolveArg('id');
+                return $this->respondWithData(
+                    [
+                        $id
+                    ],
+                    202
+                );
+            }
+        };
+        $app->get('/id-test/{id}', $testAction);
+        $request = $this->createRequest('GET', '/id-test/notanID');
+        $this->expectException(InvalidIdException::class);
+        $app->handle($request);
     }
 }
