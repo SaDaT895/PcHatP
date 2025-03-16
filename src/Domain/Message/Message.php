@@ -13,6 +13,7 @@ class Message extends Model
     const CREATED_AT = 'sent_at';
     protected string $content;
 
+    protected $fillable = ['content', 'room_id', 'sender_id'];
     public function room()
     {
         return $this->belongsTo(Room::class);
