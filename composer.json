@@ -55,6 +55,11 @@
   "scripts": {
     "start": "php -S localhost:8080 -t public",
     "test": "phpunit",
-    "migrate": "php vendor/bin/phinx migrate -c config/phinx.php"
+    "migrate": "php vendor/bin/phinx migrate -c config/phinx.php",
+    "dev": [
+      "@composer install",
+      "php vendor/bin/phinx migrate -c config/phinx.php",
+      "php -S localhost:8080 -t public"
+    ]
   }
 }
