@@ -29,6 +29,6 @@ DDD-based application. Find controller classes in src\Application\Actions and mo
   - GET /room/:id/messages - list all messages in room
 
 ### Messages
-  - POST /messages {message:string, room:integer} - send a message
+  - POST /messages {message:string, room:integer} - send a message (sent by active-user in the session)
 
 
