@@ -20,7 +20,8 @@ final class CreateRoomsTable extends AbstractMigration
     public function change(): void
     {
         $rooms = $this->table('rooms');
-        $rooms->addColumn('name', 'string')
+        $rooms
+            ->addColumn('name', 'string')
             ->addTimestamps()
             ->create();
     }

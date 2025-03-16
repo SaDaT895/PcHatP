@@ -20,7 +20,8 @@ final class CreateMessagesTable extends AbstractMigration
     public function change(): void
     {
         $messages = $this->table('messages');
-        $messages->addColumn('content', 'string')
+        $messages
+            ->addColumn('content', 'string')
             ->addTimestamps('sent_at')
             ->addColumn('sender_id', 'integer')
             ->addColumn('room_id', 'integer')
