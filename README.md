@@ -5,7 +5,7 @@ Hello fellow developer from bunq,
 My name is Sadat. Nice to meet you.
 
 ## Get Started
-You may run `compsoer dev` to get started.
+You may run `composer dev` to get started.
 
   - Create a user and room 
   - Send a message in room
