@@ -111,5 +111,6 @@ class TestCase extends PHPUnit_TestCase
         $phinx = new PhinxApplication();
         $phinx->setAutoExit(false);
         $phinx->run(new StringInput('rollback -c config/phinx.php -e testing -t 0'));
+        $_SESSION = array();
     }
 }
