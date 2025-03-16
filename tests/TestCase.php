@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use Tests\TestSqLiteAdapter;
 use DI\ContainerBuilder;
 use Exception;
+use Phinx\Console\PhinxApplication;
+use Phinx\Db\Adapter\AdapterFactory;
 use PHPUnit\Framework\TestCase as PHPUnit_TestCase;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Http\Message\ServerRequestInterface as Request;
@@ -15,10 +18,13 @@ use Slim\Psr7\Factory\StreamFactory;
 use Slim\Psr7\Headers;
 use Slim\Psr7\Request as SlimRequest;
 use Slim\Psr7\Uri;
+use Symfony\Component\Console\Input\StringInput;
+use \Illuminate\Database\Capsule\Manager;
 
 class TestCase extends PHPUnit_TestCase
 {
     use ProphecyTrait;
+
 
     /**
      * @return App
@@ -28,6 +34,21 @@ class TestCase extends PHPUnit_TestCase
     {
         // Instantiate PHP-DI ContainerBuilder
         $containerBuilder = new ContainerBuilder();
+
+        $capsule = new Manager();
+        $capsule->addConnection([
+            'driver'    => 'sqlite',
+            // 'database'  => __DIR__ . '/../db/db.testing.sqlite',
+            'database' => ':memory:'
+        ]);
+
+        $capsule->setAsGlobal();
+        $capsule->bootEloquent();
+
+        // add Illuminate 
+        $container['db'] = function ($container) use ($capsule) {
+            return $capsule;
+        };
 
         // Build PHP-DI Container instance
         $container = $containerBuilder->build();
@@ -72,5 +93,13 @@ class TestCase extends PHPUnit_TestCase
         }
 
         return new SlimRequest($method, $uri, $h, $cookies, $serverParams, $stream);
+    }
+
+    public function setUp(): void
+    {
+        $phinx = new PhinxApplication();
+        $phinx->setAutoExit(false);
+        AdapterFactory::instance()->registerAdapter('testsqlite', TestSqLiteAdapter::class);
+        $phinx->run(new StringInput('migrate -c config/phinx.php -e testing'));
     }
 }
