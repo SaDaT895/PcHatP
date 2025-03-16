@@ -5,10 +5,8 @@ declare(strict_types=1);
 namespace Tests\Application\Actions\User;
 
 use App\Application\Actions\ActionPayload;
-use App\Domain\DomainException\DomainRecordNotFoundException;
 use App\Domain\User\User;
 use Tests\TestCase;
-use Illuminate\Database\Eloquent\Factories\Factory;
 use Slim\Exception\HttpNotFoundException;
 
 class ChooseUserActionTest extends TestCase

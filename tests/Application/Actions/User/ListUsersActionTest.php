@@ -15,7 +15,7 @@ class ListUsersActionTest extends TestCase
     public function testAction()
     {
         $app = $this->getAppInstance();
-        User::create(
+        User::insert(
             ['username' => 'User 1'],
             ['username' => 'User 2']
         );
