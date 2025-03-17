@@ -25,7 +25,7 @@ DDD-based application. Find controller classes in src\Application\Actions and mo
 ### Rooms
   - POST /rooms {name} - create a new Room
   - PUT /rooms/:id {name} - edit room (name)
-  - POST /rooms/:id/join {user:integer (ID)} - join the room
+  - POST /rooms/:id/join - join the room
   - GET /rooms/:id/users - list all users in room
   - GET /room/:id/messages - list all messages in room
 
