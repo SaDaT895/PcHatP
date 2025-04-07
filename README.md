@@ -1,8 +1,6 @@
 # PcHatP
 
-Hello fellow developer from bunq,
-
-My name is Sadat. Nice to meet you.
+PHP-based backend for a chat-room
 
 ## Get Started
 You may run `composer dev` to serve locally. (http://localhost:8080)
